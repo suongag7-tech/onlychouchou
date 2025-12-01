@@ -101,15 +101,17 @@
 
   /* CHỮ HIỆN SAU KHI BẤM */
   .caption {
-    position:absolute;
-    bottom:-50px;
-    width:100%;
+    position:fixed;           /* căn giữa màn hình */
+    bottom:20%;               /* thấp hơn so với đáy */
+    left:50%;
+    transform:translateX(-50%);
     text-align:center;
     font-size:16px;
     color:#6e8d3a;
     opacity:0;
     animation: fadeIn 0.6s forwards;
     font-weight:600;
+    z-index:1000;
   }
   @keyframes fadeIn {
     from { opacity:0; transform:translateY(10px); }
@@ -128,7 +130,7 @@
 <div class="msg">
 "Mong những điều nhỏ nhặt em làm có thể làm chị vui vẻ hơn một chút.<br>
 Với em, chị luôn là người đặc biệt.<br>
-Mong chị giữ được nụ cười xinh, vì nó là điều đơn giãn em mong mỗi ngày."
+Mong chị giữ được nụ cười xinh, vì nó là điều đơn giản em mong mỗi ngày."
 </div>
 
 <div class="rabbit-box" id="rabbit">
@@ -144,7 +146,7 @@ function snap(){
   const cap = document.createElement("div");
   cap.className = "caption";
   cap.innerHTML = "Công Chúa oi cười lên đi, người ta chụp 1 tấm nè ✨📸";
-  rabbit.appendChild(cap);
+  document.body.appendChild(cap); // append vào body vì dùng fixed
 
   // Phát nhạc ngay khi user tương tác
   audio.currentTime = 0;
@@ -152,7 +154,6 @@ function snap(){
 
   // Sau 1.5s mới tạo flash và confetti
   setTimeout(()=>{
-
     // FLASH
     const flash = document.createElement("div");
     flash.className="flash";
