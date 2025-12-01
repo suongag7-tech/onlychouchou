@@ -120,6 +120,7 @@
 
 <body>
 
+<!-- Nhạc nền -->
 <audio id="loveSound" src="love.mp3"></audio>
 
 <div class="sun"></div>
@@ -136,6 +137,7 @@ Mong chị giữ được nụ cười xinh, vì nó là điều đơn giãn em 
 
 <script>
 const rabbit = document.getElementById("rabbit");
+const audio = document.getElementById("loveSound");
 
 function snap(){
   // Hiện chữ
@@ -144,24 +146,22 @@ function snap(){
   cap.innerHTML = "Công Chúa oi cười lên đi, người ta chụp 1 tấm nè ✨📸";
   rabbit.appendChild(cap);
 
-  // Sau 1.5s mới chụp ảnh
+  // Phát nhạc ngay khi user tương tác
+  audio.currentTime = 0;
+  audio.play().catch(()=>{});
+
+  // Sau 1.5s mới tạo flash và confetti
   setTimeout(()=>{
 
     // FLASH
     const flash = document.createElement("div");
     flash.className="flash";
     document.body.appendChild(flash);
-
-    // Phát nhạc sau khi flash tắt (0.5s)
-    setTimeout(()=>{
-      document.getElementById("loveSound").play().catch(()=>{});
-    }, 500);
-
     setTimeout(()=>flash.remove(),500);
 
     // CONFETTI
     const icons = ["🌸","🩷","💛","💚","✨"];
-    for(let i=0;i<12;i++){  // giảm số lượng cho mượt
+    for(let i=0;i<12;i++){
       const c = document.createElement("div");
       c.className="confetti";
       c.innerHTML = icons[Math.floor(Math.random()*icons.length)];
