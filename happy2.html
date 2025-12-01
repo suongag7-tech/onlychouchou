@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bé Thỏ Ôm Công Chúa 🧡🐰</title>
+
+<style>
+  body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(to bottom, #ffd7d3, #ffc4b7, #ffb39d);
+    height:100%;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .msg {
+    position:absolute;
+    top:5%;
+    width:90%;
+    text-align:center;
+    font-size:4vw;
+    color:#b34f3f;
+    text-shadow:0 2px 4px rgba(255,255,255,0.7);
+    line-height:1.4;
+  }
+  @media(min-width:600px){ .msg{ font-size:20px; } }
+
+  /* Hiệu ứng sáng đung đưa */
+  .glow {
+    position:absolute;
+    width:200px;
+    height:200px;
+    background:rgba(255,255,255,0.3);
+    border-radius:50%;
+    filter:blur(40px); /* giảm từ 70px để mượt hơn */
+    animation: swing 5s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes swing {
+    0%,100% { transform:translateX(-20px); }
+    50%    { transform:translateX(20px); }
+  }
+
+  .rabbit-box {
+    position:relative;
+    width:25vw;
+    max-width:220px;
+    aspect-ratio:1/1;
+    background:rgba(255,255,255,0.4);
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    backdrop-filter:blur(4px); /* giảm blur cho mượt */
+    box-shadow:0 0 10px rgba(255,255,255,0.7);
+    cursor:pointer;
+    will-change:transform; /* tăng hiệu suất */
+  }
+
+  .rabbit-box img {
+    width:70%;
+    transition:0.3s;
+    user-select:none;
+    -webkit-user-drag:none;
+    will-change:transform;
+  }
+
+  .hug {
+    transform:scale(1.12) rotate(2deg);
+  }
+
+  .big-heart {
+    position:absolute;
+    font-size:50px;
+    bottom:10px;
+    opacity:0;
+    animation: heartPop 0.9s ease forwards;
+    pointer-events:none;
+  }
+
+  @keyframes heartPop {
+    0% { transform:scale(0); opacity:0; }
+    60% { transform:scale(1.2); opacity:1; }
+    100% { transform:scale(1); opacity:1; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<div class="msg">
+"Hôm nay công chúa mệt mỏi rồi, thỏ muốn ‘omom’ công chúa một cái.<br>
+Chị không cần lúc nào cũng mạnh mẽ, áp lực quá hay mệt mỏi quá có thể chia sẻ với em được không.<br>
+Em nhớ chị.<br>
+Em thương chị.<br>
+Và dù sau này có như thế nào thì em vẫn mong chị luôn vui vẻ, bình an và hạnh phúc."
+</div>
+
+<div class="rabbit-box" id="rabbit">
+  <img src="thogif2.png" alt="Thỏ dễ thương">
+</div>
+
+<script>
+  const rabbit = document.getElementById("rabbit");
+
+  function hug(){
+    const img = rabbit.querySelector("img");
+    img.classList.add("hug");
+
+    const heart = document.createElement("div");
+    heart.className = "big-heart";
+    heart.innerHTML = "❤️";
+    rabbit.appendChild(heart);
+
+    setTimeout(()=>img.classList.remove("hug"),900);
+    setTimeout(()=>heart.remove(),900);
+  }
+
+  // Hỗ trợ cả click và touch trên điện thoại
+  rabbit.addEventListener("click", hug);
+  rabbit.addEventListener("touchstart", hug);
+</script>
+
+</body>
+</html>

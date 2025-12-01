@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bé Thỏ Đưa Hoa 💚🌿</title>
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #d9f9f1, #c8f3e8, #b6ecdd);
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+  }
+
+  .msg {
+    position:absolute;
+    top:5%;
+    width:90%;
+    text-align:center;
+    font-size:4vw;
+    color:#26765f;
+    font-weight:500;
+    text-shadow:0 2px 4px rgba(255,255,255,0.7);
+    line-height:1.4;
+  }
+
+  @media(min-width:600px){
+    .msg { font-size:20px; }
+  }
+
+  /* THỎ */
+  .rabbit-box {
+    width:25vw;
+    max-width:200px;
+    aspect-ratio:1/1;
+    background:rgba(255,255,255,0.4);
+    border-radius:50%;
+    backdrop-filter:blur(8px);
+    box-shadow:0 0 15px rgba(255,255,255,0.7);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    position:relative;
+    transition:0.3s;
+  }
+
+  .rabbit-box img {
+    width:70%;
+    transition:0.3s ease;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+
+  /* Thỏ đưa hoa */
+  .lift {
+    transform:translateY(-25px) rotate(-5deg);
+  }
+
+  /* Trái tim */
+  .heart {
+    position:absolute;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:26px;
+    opacity:0;
+    animation: heartUp 1s ease-out forwards;
+    pointer-events:none;
+  }
+
+  @keyframes heartUp {
+    0% { transform:translate(-50%,0); opacity:1; }
+    100% { transform:translate(-50%,-100px); opacity:0; }
+  }
+
+  /* Hoa lá bay */
+  .leaf {
+    position:absolute;
+    top:-20px;
+    font-size:20px;
+    animation: fall 4.5s linear infinite;
+    opacity:0.9;
+    pointer-events:none;
+  }
+
+  @keyframes fall {
+    0% { transform:translateY(0) rotate(0deg); }
+    100% { transform:translateY(110vh) rotate(180deg); }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="msg">
+  "Hôm nay chị bé vất vả rồi nghỉ ngơi thoi đừng suy nghĩ linh tinh nữa.<br>
+  Em xin lỗi.<br>
+  Mấy hôm trước không phải em khó chịu không phải em không vui.<br>
+  Mà em xót chị, đi làm từ sớm mà không được nghỉ ngơi đàng hoàng."
+</div>
+
+<div class="rabbit-box" id="rabbit">
+  <img src="thogif1.png" alt="Thỏ dễ thương">
+</div>
+
+<script>
+  const rabbit = document.getElementById("rabbit");
+
+  function liftRabbit(){
+    const img = rabbit.querySelector("img");
+    img.classList.add("lift");
+
+    // Trái tim
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    rabbit.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),1000);
+    setTimeout(()=>img.classList.remove("lift"),800);
+  }
+
+  // Hỗ trợ cả click và touch trên điện thoại
+  rabbit.addEventListener("click", liftRabbit);
+  rabbit.addEventListener("touchstart", liftRabbit);
+
+  // Tạo hoa lá rơi
+  const icons = ["🍃","🌼","🌿","🍀"];
+  for(let i=0;i<12;i++){  // giảm số lượng để mượt hơn
+    const leaf = document.createElement("div");
+    leaf.className="leaf";
+    leaf.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+    leaf.style.left = Math.random()*100 + "vw";
+    leaf.style.fontSize = (18 + Math.random()*12) + "px";
+    leaf.style.animationDelay = Math.random()*3 + "s";
+    document.body.appendChild(leaf);
+  }
+</script>
+
+</body>
+</html>

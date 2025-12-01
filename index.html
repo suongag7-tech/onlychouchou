@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>Thỏ Của Công Chúa 💚🐰</title>
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; touch-action: manipulation; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #d0f8f0, #bdf3e8, #a6ecd8);
+    height: 100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* MÂY */
+  .cloud {
+    position:absolute;
+    width:120px;
+    height:50px;
+    background:rgba(255,255,255,0.9);
+    border-radius:50px;
+    filter:blur(0.5px);
+    animation: cloudMove 20s linear infinite;
+  }
+  .cloud:before, .cloud:after {
+    content:''; position:absolute;
+    background:rgba(255,255,255,0.9);
+    border-radius:50%;
+  }
+  .cloud:before { width:80px; height:80px; top:-20px; left:10px; }
+  .cloud:after  { width:60px; height:60px; top:-10px; left:60px; }
+
+  @keyframes cloudMove {
+    from { transform:translateX(-200px); }
+    to   { transform:translateX(120vw); }
+  }
+
+  /* TIÊU ĐỀ */
+  .title {
+    position:absolute;
+    top:3vh;
+    width:90%;
+    text-align:center;
+    font-size:4vw;
+    max-width:400px;
+    color:#2e8c6a;
+    font-weight:600;
+    text-shadow:0 2px 5px rgba(255,255,255,0.8);
+    line-height:1.3;
+  }
+
+  /* CONTAINER THỎ */
+  .rabbit-container {
+    display:flex;
+    gap: 10vw;
+    justify-content:center;
+    align-items:flex-end;
+    padding-top:10vh;
+  }
+
+  .rabbit-wrapper {
+    width:30vw;
+    max-width:130px;
+    height:40vw;
+    max-height:170px;
+    cursor:pointer;
+    transform-origin:bottom center;
+    animation: float 3s ease-in-out infinite;
+    position:relative;
+  }
+
+  @keyframes float {
+    0%,100% { transform:translateY(0) rotate(-2deg); }
+    50%     { transform:translateY(-8px) rotate(2deg); }
+  }
+
+  /* VÒNG TRÒN CHỨA THỎ */
+  .rabbit {
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:rgba(255,255,255,0.5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:0.25s ease;
+    box-shadow:0 0 12px rgba(255,255,255,0.6);
+  }
+
+  /* fallback nếu không hỗ trợ blur */
+  @supports (backdrop-filter: blur(6px)) {
+    .rabbit { backdrop-filter: blur(6px); }
+  }
+
+  .rabbit img {
+    width:72%;
+    pointer-events:none;
+  }
+
+  /* THỎ NHẢY */
+  .jump {
+    animation: jump 0.6s ease forwards;
+  }
+
+  @keyframes jump {
+    0%   { transform:translateY(0); }
+    40%  { transform:translateY(-35px); }
+    70%  { transform:translateY(5px); }
+    100% { transform:translateY(0); }
+  }
+
+  /* TRÁI TIM BAY */
+  .heart {
+    position:absolute;
+    bottom:10px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:22px;
+    color:#ff7fa5;
+    opacity:0;
+    animation: flyUp 1s ease-out forwards;
+  }
+
+  @keyframes flyUp {
+    0% { transform:translate(-50%,0); opacity:1; }
+    100% { transform:translate(-50%,-70px); opacity:0; }
+  }
+
+  /* MÀN RẤT NHỎ */
+  @media (max-width: 360px) {
+    .rabbit-wrapper {
+      width:33vw;
+      height:43vw;
+    }
+    .title { font-size:4vw; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- Mây -->
+<div class="cloud" style="top:12%; width:140px;"></div>
+<div class="cloud" style="top:25%; animation-delay:4s;"></div>
+<div class="cloud" style="top:40%; width:170px; animation-delay:8s;"></div>
+
+<div class="title">Công chúa gọi, thỏ mang nắng mang hoa về 🐰💐</div>
+
+<div class="rabbit-container">
+
+  <div class="rabbit-wrapper" onclick="selectRabbit('happy1.html', this)">
+    <div class="rabbit"><img src="tho1.png"></div>
+  </div>
+
+  <div class="rabbit-wrapper" onclick="selectRabbit('happy2.html', this)">
+    <div class="rabbit"><img src="tho2.png"></div>
+  </div>
+
+  <div class="rabbit-wrapper" onclick="selectRabbit('happy3.html', this)">
+    <div class="rabbit"><img src="tho3.png"></div>
+  </div>
+
+</div>
+
+<script>
+function selectRabbit(url, element) {
+  const rabbit = element.querySelector('.rabbit');
+
+  rabbit.classList.add('jump');
+
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💗";
+  element.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 900);
+
+  setTimeout(() => { location.href = url; }, 700);
+
+  setTimeout(() => { rabbit.classList.remove('jump'); }, 800);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bé Thỏ Chụp Ảnh 💛📸</title>
+
+<style>
+  body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(to bottom, #fff7d2, #f9f1b4, #eaf9cb);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    position:relative;
+  }
+
+  .msg {
+    position:absolute;
+    top:5%;
+    width:90%;
+    text-align:center;
+    font-size:4vw;
+    color:#6d7f1f;
+    text-shadow:0 2px 4px rgba(255,255,255,0.7);
+    line-height:1.4;
+  }
+  @media(min-width:600px){ .msg{ font-size:20px; } }
+
+  /* Mặt trời */
+  .sun {
+    position:absolute;
+    top:10%;
+    right:10%;
+    width:100px;
+    height:100px;
+    background: radial-gradient(circle, #ffe97a, #ffd34f);
+    border-radius:50%;
+    box-shadow:0 0 30px rgba(255,223,80,0.6);
+    animation: pulse 4s infinite alternate;
+    pointer-events:none;
+  }
+  @keyframes pulse {
+    0% { transform:scale(1); }
+    100% { transform:scale(1.07); }
+  }
+
+  .rabbit-box {
+    width:25vw;
+    max-width:220px;
+    aspect-ratio:1/1;
+    background:rgba(255,255,255,0.45);
+    backdrop-filter:blur(4px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    position:relative;
+    box-shadow:0 0 10px rgba(255,255,255,0.7);
+    will-change:transform;
+  }
+  .rabbit-box img {
+    width:70%;
+    transition:0.3s ease;
+    user-select:none;
+    -webkit-user-drag:none;
+    will-change:transform;
+  }
+
+  /* FLASH */
+  .flash {
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:white;
+    opacity:0;
+    pointer-events:none;
+    animation: flashAnim 0.5s ease-out forwards;
+  }
+  @keyframes flashAnim {
+    0% { opacity:0; }
+    10% { opacity:0.8; }
+    100% { opacity:0; }
+  }
+
+  /* CONFETTI */
+  .confetti {
+    position:fixed;
+    top:-20px;
+    font-size:16px;
+    animation: fall 3s linear forwards;
+    pointer-events:none;
+  }
+  @keyframes fall {
+    0% { transform:translateY(0) rotate(0deg); opacity:1; }
+    100% { transform:translateY(100vh) rotate(180deg); opacity:0; }
+  }
+
+  /* CHỮ HIỆN SAU KHI BẤM */
+  .caption {
+    position:absolute;
+    bottom:-50px;
+    width:100%;
+    text-align:center;
+    font-size:16px;
+    color:#6e8d3a;
+    opacity:0;
+    animation: fadeIn 0.6s forwards;
+    font-weight:600;
+  }
+  @keyframes fadeIn {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+</style>
+</head>
+
+<body>
+
+<audio id="loveSound" src="love.mp3"></audio>
+
+<div class="sun"></div>
+
+<div class="msg">
+"Mong những điều nhỏ nhặt em làm có thể làm chị vui vẻ hơn một chút.<br>
+Với em, chị luôn là người đặc biệt.<br>
+Mong chị giữ được nụ cười xinh, vì nó là điều đơn giãn em mong mỗi ngày."
+</div>
+
+<div class="rabbit-box" id="rabbit">
+  <img src="thogif3.png" alt="Thỏ chụp ảnh">
+</div>
+
+<script>
+const rabbit = document.getElementById("rabbit");
+
+function snap(){
+  // Hiện chữ
+  const cap = document.createElement("div");
+  cap.className = "caption";
+  cap.innerHTML = "Công Chúa oi cười lên đi, người ta chụp 1 tấm nè ✨📸";
+  rabbit.appendChild(cap);
+
+  // Sau 1.5s mới chụp ảnh
+  setTimeout(()=>{
+
+    // FLASH
+    const flash = document.createElement("div");
+    flash.className="flash";
+    document.body.appendChild(flash);
+
+    // Phát nhạc sau khi flash tắt (0.5s)
+    setTimeout(()=>{
+      document.getElementById("loveSound").play().catch(()=>{});
+    }, 500);
+
+    setTimeout(()=>flash.remove(),500);
+
+    // CONFETTI
+    const icons = ["🌸","🩷","💛","💚","✨"];
+    for(let i=0;i<12;i++){  // giảm số lượng cho mượt
+      const c = document.createElement("div");
+      c.className="confetti";
+      c.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+      c.style.left = Math.random()*100 + "vw";
+      c.style.fontSize = (14 + Math.random()*10) + "px";
+      c.style.animationDelay = (Math.random()*0.6) + "s";
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),3000);
+    }
+
+  },1500);
+}
+
+// Hỗ trợ cả click và touch
+rabbit.addEventListener("click", snap);
+rabbit.addEventListener("touchstart", snap);
+</script>
+
+</body>
+</html>
